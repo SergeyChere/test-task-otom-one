@@ -1,6 +1,7 @@
 package utils;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import model.*;
 import org.json.simple.parser.ParseException;
@@ -8,6 +9,7 @@ import org.json.simple.parser.ParseException;
 import java.io.*;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class FileParser {
@@ -16,10 +18,10 @@ public class FileParser {
 
     public static ArrayList<DataTable> parser() throws IOException, ParseException {
         ArrayList<DataTable> dataTables = new ArrayList<>();
-        Gson gson = new Gson();
-        Type listType = new TypeToken<List<DataTable>>(){}.getType();
         BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(mockJSON)));
-        List<DataTable> dataTableList = gson.fromJson(reader, listType);
+        Gson gson = new GsonBuilder().registerTypeAdapter(DataTable.class, new DataTableDeserialization()).create();
+        List<DataTable> dataTableList = gson.fromJson(reader, new TypeToken<DataTable>(){}.getType());
+        System.out.println(Arrays.deepToString(dataTableList.toArray()));
 
         for (DataTable element : dataTableList) {
             DataTable dataTable = new DataTable.Builder()

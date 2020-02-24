@@ -3,11 +3,11 @@ import dao.DataDAOImpl;
 import model.DataTable;
 import utils.FileParser;
 import utils.JDBCUtils;
+import utils.RunnerDataTable;
 
 import java.sql.Connection;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
@@ -17,7 +17,9 @@ public class Main {
             Statement statement = connection.createStatement()) {
             System.out.println("We're connected");
             dataDAO.tablesCreation(statement);
-            ArrayList<DataTable> tables = FileParser.parser();
+//            ArrayList<DataTable> tables = FileParser.parser();
+            RunnerDataTable runnerDataTable = new RunnerDataTable();
+            ArrayList<DataTable> tables = runnerDataTable.createDataTables();
             for (DataTable table : tables) {
                 dataDAO.createData(table);
             }

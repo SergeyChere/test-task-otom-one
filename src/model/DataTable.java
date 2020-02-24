@@ -36,6 +36,7 @@ public class DataTable {
     }
 
     public static class Builder {
+
         private MGA_DC_BANKS_ACTIVITY mga_dc_banks_activity;
         private MGA_DC_DEBTS mga_dc_debts;
         private MGA_DC_DEBTS_ACTIVITIES mga_dc_debts_activities;
