@@ -59,13 +59,4 @@ public class MGA_DC_LOAD_GROUPS {
         }
 
     }
-
-    @Override
-    public String toString() {
-        return "MGA_DC_LOAD_GROUPS{" +
-                "LOAD_GROUP_ID=" + LOAD_GROUP_ID +
-                ", SOURCE_ID=" + SOURCE_ID +
-                ", LOAD_GROUP_TYPE_ID=" + LOAD_GROUP_TYPE_ID +
-                '}';
-    }
 }

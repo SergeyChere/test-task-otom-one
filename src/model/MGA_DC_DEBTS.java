@@ -97,16 +97,4 @@ public class MGA_DC_DEBTS {
             return new MGA_DC_DEBTS(DEBTOR_ID, IDENTIFIER, SERVICE_TYPE, SOURCE_ID, DEBT_ID, LOAD_GROUP_ID);
         }
     }
-
-    @Override
-    public String toString() {
-        return "MGA_DC_DEBTS{" +
-                "DEBTOR_ID=" + DEBTOR_ID +
-                ", IDENTIFIER=" + IDENTIFIER +
-                ", SERVICE_TYPE=" + SERVICE_TYPE +
-                ", SOURCE_ID=" + SOURCE_ID +
-                ", DEBT_ID=" + DEBT_ID +
-                ", LOAD_GROUP_ID=" + LOAD_GROUP_ID +
-                '}';
-    }
 }

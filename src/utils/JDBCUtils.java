@@ -1,8 +1,7 @@
 package utils;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.rmi.RemoteException;
+import java.sql.*;
 
 public class JDBCUtils {
 
@@ -10,8 +9,11 @@ public class JDBCUtils {
     private static String user = "root";
     private static String password = "r00t";
 
+    public static ResultSet resultSet = null;
+    public static Statement statement = null;
+    public static Connection connection = null;
+
     public static Connection getConnection() {
-        Connection connection = null;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection(url, user, password);
@@ -21,5 +23,16 @@ public class JDBCUtils {
             e.printStackTrace();
         }
         return connection;
+    }
+
+    public static void disconnect() throws RemoteException {
+        try{
+            if(resultSet != null) resultSet.close();
+            if(statement != null) statement.close();
+            if(connection != null) connection.close();
+        }
+        catch(SQLException sqlEx){
+            System.out.println("Error: disconnect");
+        }
     }
 }

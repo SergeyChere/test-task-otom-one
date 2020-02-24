@@ -98,16 +98,4 @@ public class MGA_DC_DEBTS_ACTIVITIES {
         }
 
     }
-
-    @Override
-    public String toString() {
-        return "MGA_DC_DEBTS_ACTIVITIES{" +
-                "DEBTS_ACTIVITY_ID=" + DEBTS_ACTIVITY_ID +
-                ", DEPARTMENT_ID=" + DEPARTMENT_ID +
-                ", DEBT_GROUP_ID=" + DEBT_GROUP_ID +
-                ", MAIN_PRO_ID=" + MAIN_PRO_ID +
-                ", SUB_PRO_ID=" + SUB_PRO_ID +
-                ", STATUS_ID=" + STATUS_ID +
-                '}';
-    }
 }

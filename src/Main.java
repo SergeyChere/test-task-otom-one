@@ -1,7 +1,6 @@
 import dao.DataDAO;
 import dao.DataDAOImpl;
 import model.DataTable;
-import utils.FileParser;
 import utils.JDBCUtils;
 import utils.RunnerDataTable;
 
@@ -17,7 +16,6 @@ public class Main {
             Statement statement = connection.createStatement()) {
             System.out.println("We're connected");
             dataDAO.tablesCreation(statement);
-//            ArrayList<DataTable> tables = FileParser.parser();
             RunnerDataTable runnerDataTable = new RunnerDataTable();
             ArrayList<DataTable> tables = runnerDataTable.createDataTables();
             for (DataTable table : tables) {

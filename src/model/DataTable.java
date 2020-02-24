@@ -68,14 +68,4 @@ public class DataTable {
             return new DataTable(mga_dc_banks_activity, mga_dc_debts, mga_dc_debts_activities, mga_dc_load_groups);
         }
     }
-
-    @Override
-    public String toString() {
-        return "DataTable{" +
-                "mga_dc_banks_activity=" + mga_dc_banks_activity +
-                ", mga_dc_debts=" + mga_dc_debts +
-                ", mga_dc_debts_activities=" + mga_dc_debts_activities +
-                ", mga_dc_load_groups=" + mga_dc_load_groups +
-                '}';
-    }
 }

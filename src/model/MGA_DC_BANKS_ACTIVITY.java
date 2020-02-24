@@ -84,15 +84,4 @@ public class MGA_DC_BANKS_ACTIVITY {
             return new MGA_DC_BANKS_ACTIVITY(BANK_ACTIVITY_ID, DEPARTMENT_ID, DEBTS_ACTIVITY_ID, BANK_ID, REQUEST_TYPE_ID);
         }
     }
-
-    @Override
-    public String toString() {
-        return "MGA_DC_BANKS_ACTIVITY{" +
-                "BANK_ACTIVITY_ID=" + BANK_ACTIVITY_ID +
-                ", DEPARTMENT_ID=" + DEPARTMENT_ID +
-                ", DEBTS_ACTIVITY_ID=" + DEBTS_ACTIVITY_ID +
-                ", BANK_ID=" + BANK_ID +
-                ", REQUEST_TYPE_ID=" + REQUEST_TYPE_ID +
-                '}';
-    }
 }
