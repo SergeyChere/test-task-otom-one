@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DataDAOImpl implements DataDAO {
+
     //CREATE
     private static final String CREATE_MGA_DC_BANKS_ACTIVITY_SQL =
             "INSERT INTO test_schema.mga_dC_banks_activity"
@@ -107,29 +108,40 @@ public class DataDAOImpl implements DataDAO {
             preparedStatementCREATE_MGA_DC_DEBTS_SQL.executeUpdate();
             JDBCUtils.disconnect();
 
-            PreparedStatement preparedStatementCREATE_MGA_DC_DEBTS_ACTIVITIES_SQL =
-                    JDBCUtils.getConnection().prepareStatement(CREATE_MGA_DC_DEBTS_ACTIVITIES_SQL);
-            preparedStatementCREATE_MGA_DC_DEBTS_ACTIVITIES_SQL.setInt(1,
-                    dataTable.getMga_dc_debts_activities().getDEPARTMENT_ID());
-            preparedStatementCREATE_MGA_DC_DEBTS_ACTIVITIES_SQL.setInt(2,
-                    dataTable.getMga_dc_debts_activities().getDEBT_GROUP_ID());
-            preparedStatementCREATE_MGA_DC_DEBTS_ACTIVITIES_SQL.setInt(3,
-                    dataTable.getMga_dc_debts_activities().getMAIN_PRO_ID());
-            preparedStatementCREATE_MGA_DC_DEBTS_ACTIVITIES_SQL.setInt(4,
-                    dataTable.getMga_dc_debts_activities().getSUB_PRO_ID());
-            preparedStatementCREATE_MGA_DC_DEBTS_ACTIVITIES_SQL.setInt(5,
-                    dataTable.getMga_dc_debts_activities().getSTATUS_ID());
-            preparedStatementCREATE_MGA_DC_DEBTS_ACTIVITIES_SQL.executeUpdate();
-            JDBCUtils.disconnect();
-
-            PreparedStatement preparedStatementCREATE_MGA_DC_LOAD_GROUPS_SQL =
-                    JDBCUtils.getConnection().prepareStatement(CREATE_MGA_DC_LOAD_GROUPS_SQL);
-            preparedStatementCREATE_MGA_DC_LOAD_GROUPS_SQL.setInt(1,
-                    dataTable.getMga_dc_load_groups().getSOURCE_ID());
-            preparedStatementCREATE_MGA_DC_LOAD_GROUPS_SQL.setInt(2,
-                    dataTable.getMga_dc_load_groups().getLOAD_GROUP_TYPE_ID());
-            preparedStatementCREATE_MGA_DC_LOAD_GROUPS_SQL.executeUpdate();
-            JDBCUtils.disconnect();
+            for (int i=0; i<dataTable.getMga_dc_load_groups().size(); i++) {
+                try {
+                    PreparedStatement preparedStatementCREATE_MGA_DC_LOAD_GROUPS_SQL =
+                            JDBCUtils.getConnection().prepareStatement(CREATE_MGA_DC_LOAD_GROUPS_SQL);
+                    preparedStatementCREATE_MGA_DC_LOAD_GROUPS_SQL.setInt(1,
+                            dataTable.getMga_dc_load_groups().get(i).getSOURCE_ID());
+                    preparedStatementCREATE_MGA_DC_LOAD_GROUPS_SQL.setInt(2,
+                            dataTable.getMga_dc_load_groups().get(i).getLOAD_GROUP_TYPE_ID());
+                    preparedStatementCREATE_MGA_DC_LOAD_GROUPS_SQL.executeUpdate();
+                    JDBCUtils.disconnect();
+                    for (int j=0; j<dataTable.getMga_dc_load_groups().get(i).getMga_dc_debts_activities().size(); j++) {
+                        try {
+                            PreparedStatement preparedStatementCREATE_MGA_DC_DEBTS_ACTIVITIES_SQL =
+                                    JDBCUtils.getConnection().prepareStatement(CREATE_MGA_DC_DEBTS_ACTIVITIES_SQL);
+                            preparedStatementCREATE_MGA_DC_DEBTS_ACTIVITIES_SQL.setInt(1,
+                                    dataTable.getMga_dc_load_groups().get(i).getMga_dc_debts_activities().get(j).getDEPARTMENT_ID());
+                            preparedStatementCREATE_MGA_DC_DEBTS_ACTIVITIES_SQL.setInt(2,
+                                    dataTable.getMga_dc_load_groups().get(i).getMga_dc_debts_activities().get(j).getDEBT_GROUP_ID());
+                            preparedStatementCREATE_MGA_DC_DEBTS_ACTIVITIES_SQL.setInt(3,
+                                    dataTable.getMga_dc_load_groups().get(i).getMga_dc_debts_activities().get(j).getMAIN_PRO_ID());
+                            preparedStatementCREATE_MGA_DC_DEBTS_ACTIVITIES_SQL.setInt(4,
+                                    dataTable.getMga_dc_load_groups().get(i).getMga_dc_debts_activities().get(j).getSUB_PRO_ID());
+                            preparedStatementCREATE_MGA_DC_DEBTS_ACTIVITIES_SQL.setInt(5,
+                                    dataTable.getMga_dc_load_groups().get(i).getMga_dc_debts_activities().get(j).getSTATUS_ID());
+                            preparedStatementCREATE_MGA_DC_DEBTS_ACTIVITIES_SQL.executeUpdate();
+                            JDBCUtils.disconnect();
+                        } catch (SQLException | RemoteException exc) {
+                            exc.printStackTrace();
+                        }
+                    }
+                } catch (SQLException | RemoteException exc) {
+                    exc.printStackTrace();
+                }
+            }
         } catch (SQLException | RemoteException exc) {
             exc.printStackTrace();
         }

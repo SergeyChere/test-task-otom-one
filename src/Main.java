@@ -7,16 +7,18 @@ import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
+
         DataDAO dataDAO = new DataDAOImpl();
+        RunnerDataTable runnerDataTable = new RunnerDataTable();
 
         try {
             System.out.println("We're connected");
+
             System.out.println("Creation tables...");
             dataDAO.tablesCreation();
             System.out.println("Tables are created");
 
             System.out.println("Insertion data to tables...");
-            RunnerDataTable runnerDataTable = new RunnerDataTable();
             ArrayList<DataTable> tables = runnerDataTable.createDataTables();
             for (DataTable table : tables) {
                 dataDAO.createData(table);

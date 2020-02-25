@@ -7,7 +7,7 @@ public class JDBCUtils {
 
     private static String url = "jdbc:mysql://localhost:3306/test_schema?useSSL=false";
     private static String user = "root";
-    private static String password = "r00t";
+    private static String password = "root";
 
     public static ResultSet resultSet = null;
     public static Statement statement = null;
