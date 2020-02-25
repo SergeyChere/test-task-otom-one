@@ -9,7 +9,7 @@ public class RunnerDataTable {
     ArrayList<DataTable> dataTables = new ArrayList<>();
     Random random = new Random();
     public ArrayList<DataTable> createDataTables() {
-        for (int i = 0; i<1000; i++) {
+        for (int i = 0; i<50; i++) {
             DataTable dataTable = new DataTable.Builder()
                     .setMga_dc_banks_activity(new MGA_DC_BANKS_ACTIVITY.Builder()
                             .setDEPARTMENT_ID(random.nextInt())
@@ -39,5 +39,16 @@ public class RunnerDataTable {
             dataTables.add(dataTable);
         }
         return dataTables;
+    }
+
+    public DataTable updateDEPARTMENT_ID() {
+        return new DataTable.Builder()
+                .setMga_dc_banks_activity(new MGA_DC_BANKS_ACTIVITY.Builder()
+                        .setDEPARTMENT_ID(1)
+                        .setDEBTS_ACTIVITY_ID(1)
+                        .setBANK_ID(1)
+                        .setREQUEST_TYPE_ID(1)
+                        .build())
+                .build();
     }
 }

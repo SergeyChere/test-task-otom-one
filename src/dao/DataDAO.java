@@ -1,15 +1,13 @@
 package dao;
 
-import model.*;
+import model.DataTable;
 
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public interface DataDAO {
 
-    void tablesCreation(Statement statement) throws SQLException;
+    void tablesCreation() throws SQLException;
     void createData(DataTable dataTable) throws SQLException;
-    void readData() throws SQLException;
-    void updateData(DataTable dataTable) throws SQLException;
-    void removeData() throws SQLException;
+    void updateData(DataTable dataTable, int id) throws SQLException;
+    void removeData(int id) throws SQLException;
 }
