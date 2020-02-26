@@ -1,0 +1,1 @@
+Please, create and run mysql with user=root, password=r00t and schema name=test_schema

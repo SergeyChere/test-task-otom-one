@@ -8,10 +8,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
-
+/*
+This class create tables, insert, update and remove data
+ */
 public class DataDAOImpl implements DataDAO {
-
-    //CREATE
+    /*
+    All this queries that begin from "CREATE_" for insertion data to tables
+     */
     private static final String CREATE_MGA_DC_BANKS_ACTIVITY_SQL =
             "INSERT INTO test_schema.mga_dC_banks_activity"
                     +"  (DEPARTMENT_ID, DEBTS_ACTIVITY_ID, BANK_ID, REQUEST_TYPE_ID) VALUES "
@@ -27,7 +30,9 @@ public class DataDAOImpl implements DataDAO {
     private static final String CREATE_MGA_DC_LOAD_GROUPS_SQL =
             "INSERT INTO test_schema.mga_dc_load_groups"
                     +"  (SOURCE_ID, LOAD_GROUP_TYPE_ID) VALUES "+" (?, ?);";
-    //UPDATE
+    /*
+    This query for updating row from table MGA_DC_BANKS_ACTIVITY by id=1
+     */
     private static final String UPDATE_MGA_DC_BANKS_ACTIVITY_SQL =
             "UPDATE test_schema.mga_dC_banks_activity SET"
                     +" DEPARTMENT_ID=?,"
@@ -35,10 +40,14 @@ public class DataDAOImpl implements DataDAO {
                     +" BANK_ID=?,"
                     +" REQUEST_TYPE_ID=?"
                     +" WHERE BANK_ACTIVITY_ID=?";
-    //REMOVE
+    /*
+    This query removing row from table MGA_DC_LOAD_GROUPS by id=15
+     */
     private static final String REMOVE_MGA_DC_LOAD_GROUPS_SQL =
             "DELETE FROM test_schema.mga_dc_load_groups WHERE LOAD_GROUP_ID=?";
-
+    /*
+    This method create tables: MGA_DC_DEBTS_ACTIVITIES, MGA_DC_LOAD_GROUPS, MGA_DC_DEBTS, MGA_DC_BANKS_ACTIVITY
+     */
     @Override
     public void tablesCreation() {
         try (Connection connection = JDBCUtils.getConnection();
@@ -76,7 +85,9 @@ public class DataDAOImpl implements DataDAO {
             exc.printStackTrace();
         }
     }
-
+    /*
+    This method insert data into all tables
+     */
     @Override
     public void createData(DataTable dataTable) {
         try {
@@ -107,7 +118,9 @@ public class DataDAOImpl implements DataDAO {
                     dataTable.getMga_dc_debts().getLOAD_GROUP_ID());
             preparedStatementCREATE_MGA_DC_DEBTS_SQL.executeUpdate();
             JDBCUtils.disconnect();
-
+            /*
+            This cycle insert list of MGA_DC_LOAD_GROUPS
+             */
             for (int i=0; i<dataTable.getMga_dc_load_groups().size(); i++) {
                 try {
                     PreparedStatement preparedStatementCREATE_MGA_DC_LOAD_GROUPS_SQL =
@@ -118,6 +131,9 @@ public class DataDAOImpl implements DataDAO {
                             dataTable.getMga_dc_load_groups().get(i).getLOAD_GROUP_TYPE_ID());
                     preparedStatementCREATE_MGA_DC_LOAD_GROUPS_SQL.executeUpdate();
                     JDBCUtils.disconnect();
+                    /*
+                        This cycle insert list of MGA_DC_DEBTS_ACTIVITIES
+                     */
                     for (int j=0; j<dataTable.getMga_dc_load_groups().get(i).getMga_dc_debts_activities().size(); j++) {
                         try {
                             PreparedStatement preparedStatementCREATE_MGA_DC_DEBTS_ACTIVITIES_SQL =
@@ -146,7 +162,9 @@ public class DataDAOImpl implements DataDAO {
             exc.printStackTrace();
         }
     }
-
+    /*
+    This method update data in table MGA_DC_BANKS_ACTIVITY by id=1
+     */
     @Override
     public void updateData(DataTable dataTable, int id) {
         try {
@@ -169,7 +187,9 @@ public class DataDAOImpl implements DataDAO {
             exc.printStackTrace();
         }
     }
-
+    /*
+    This method remove data in table MGA_DC_LOAD_GROUPS by id=15
+     */
     @Override
     public void removeData(int id) {
         try {

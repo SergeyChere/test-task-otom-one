@@ -1,0 +1,48 @@
+SELECT *
+FROM mga_dc_load_groups
+INNER JOIN mga_dc_debts
+ON mga_dc_load_groups.load_group_id=mga_dc_debts.load_group_id
+INNER JOIN mga_dC_debts_activities
+ON mga_dC_debts.debt_group_id=mga_dC_debts_activities. debt_group_id
+INNER JOIN mga_dC_banks_activity
+ON mga_dC_debts_activities.debt_activity_id=mga_dC_banks_activity.debt_activity_id
+WHERE mga_dC_banks_activity.debt_activity_id is NULL;
+
+SELECT *
+FROM mga_dC_debts_activities
+INNER JOIN mga_dC_banks_activity
+ON mga_dC_debts_activities.debt_activity_id=mga_dC_banks_activity.debt_activity_id
+WHERE mga_dC_banks_activity.debt_activity_id is NULL;
+
+SELECT SUM(request_type_id)
+FROM mga_dC_banks_activity
+INNER JOIN mga_dC_debts_activities
+ON mga_dC_debts_activities.debt_activity_id=mga_dC_banks_activity.debt_activity_id
+INNER JOIN mga_dC_debts
+ON mga_dC_debts.debt_group_id=mga_dC_debts_activities.debt_group_id
+INNER JOIN mga_dc_load_groups
+ON mga_dc_load_groups.load_group_id=mga_dc_debts.load_group_id;
+
+SELECT *
+FROM mga_dC_banks_activity
+INNER JOIN mga_dC_debts_activities
+ON mga_dC_debts_activities.debt_activity_id=mga_dC_banks_activity.debt_activity_id
+WHERE mga_dC_banks_activity.debt_activity_id is NULL
+AND mga_dC_debts_activities.main_pro_id=5
+AND mga_dC_debts_activities.status_id=501
+AND mga_dC_debts_activities.sub_pro_id=501;
+
+SELECT
+mga_dC_debts_activities.CURRENT_ACCOUNT_ACT,
+mga_dC_debts_activities.COLLECTIBLE_AT_BEGIN,
+mga_dC_debts_activities.CURRENT_COLLECTIBLE_ACT
+SUM(mga_dC_debts_activities.COLLECTIBLE_AT_BEGIN-mga_dC_debts_activities.CURRENT_COLLECTIBLE_ACT)
+AS difference_between_COLLECTIBLE_AT_BEGIN_AND_CURRENT_COLLECTIBLE_ACT,
+mga_dC_debts.current_account,
+mga_dC_debts.current_collectible,
+mga_dC_debts.original_collectible
+SUM(mga_dC_debts.current_collectible-mga_dC_debts.original_collectible)
+AS difference_between_current_collectible_and_original_collectible
+FROM mga_dC_debts_activities
+INNER JOIN mga_dC_debts
+ON mga_dC_debts.debt_group_id=mga_dC_debts_activities.debt_group_id;

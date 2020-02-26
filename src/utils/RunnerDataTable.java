@@ -2,15 +2,19 @@ package utils;
 
 import model.*;
 
-import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+/*
+This class just create data for insertion to tables
+ */
 public class RunnerDataTable {
 
-    ArrayList<DataTable> dataTables = new ArrayList<>();
-    Random random = new Random();
-
+    private ArrayList<DataTable> dataTables = new ArrayList<>();
+    private Random random = new Random();
+    /*
+    This method create data main insertion
+     */
     public ArrayList<DataTable> createDataTables() {
         for (int i = 0; i<50; i++) {
             DataTable dataTable = new DataTable.Builder()
@@ -33,7 +37,22 @@ public class RunnerDataTable {
         }
         return dataTables;
     }
-
+    /*
+    This method create List of MGA_DC_LOAD_GROUPS that contain DataTable
+     */
+    private List<MGA_DC_LOAD_GROUPS> listMGA_DC_LOAD_GROUPS() {
+        List<MGA_DC_LOAD_GROUPS> mga_dc_load_groups = new ArrayList<>();
+        for (int i=0; i<10; i++) {
+            mga_dc_load_groups.add(new MGA_DC_LOAD_GROUPS.Builder().setSOURCE_ID(random.nextInt())
+                    .setLOAD_GROUP_TYPE_ID(random.nextInt())
+                    .setMga_dc_debts_activities(listMGA_DC_DEBTS_ACTIVITIES())
+                    .build());
+        }
+        return mga_dc_load_groups;
+    }
+    /*
+    This method create List of MGA_DC_DEBTS_ACTIVITIES that contain MGA_DC_LOAD_GROUPS
+     */
     private List<MGA_DC_DEBTS_ACTIVITIES> listMGA_DC_DEBTS_ACTIVITIES() {
         List<MGA_DC_DEBTS_ACTIVITIES> mga_dc_debts_activities = new ArrayList<>();
         for (int i=0; i<10; i++) {
@@ -47,19 +66,10 @@ public class RunnerDataTable {
         }
         return mga_dc_debts_activities;
     }
-
-    private List<MGA_DC_LOAD_GROUPS> listMGA_DC_LOAD_GROUPS() {
-        List<MGA_DC_LOAD_GROUPS> mga_dc_load_groups = new ArrayList<>();
-        for (int i=0; i<10; i++) {
-            mga_dc_load_groups.add(new MGA_DC_LOAD_GROUPS.Builder().setSOURCE_ID(random.nextInt())
-                    .setLOAD_GROUP_TYPE_ID(random.nextInt())
-                    .setMga_dc_debts_activities(listMGA_DC_DEBTS_ACTIVITIES())
-                    .build());
-        }
-        return mga_dc_load_groups;
-    }
-
-    public DataTable updateDEPARTMENT_ID() {
+    /*
+    This method create data for updating row in the table MGA_DC_BANKS_ACTIVITY by id=1
+     */
+    public DataTable updateMGA_DC_BANKS_ACTIVITY() {
         return new DataTable.Builder()
                 .setMga_dc_banks_activity(new MGA_DC_BANKS_ACTIVITY.Builder()
                         .setDEPARTMENT_ID(1)
